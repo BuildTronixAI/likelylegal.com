@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LikelyLegal? | Ideas that sound legal yet dumb.</title>
+    <meta name="description" content="Daily questions about dumb ideas that might actually be legal. We're not lawyers. But we're probably right.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #ff6b35;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #ff8c5a;
+        }
+
+        .question-mark {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ff6b35;
+            line-height: 1;
+            font-family: 'Georgia', serif;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333333;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.1);
+        }
+
+        .rating {
+            display: inline-block;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .rating-fine {
+            background-color: #1a3a1a;
+            color: #7eff7e;
+        }
+
+        .rating-legal {
+            background-color: #3a3a1a;
+            color: #ffff7e;
+        }
+
+        .rating-dont {
+            background-color: #3a1a1a;
+            color: #ff7e7e;
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        nav {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo span:first-child {
+            font-size: 1.875rem;
+            font-weight: 900;
+            color: #ff6b35;
+        }
+
+        .nav-logo span:last-child {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .nav-links a {
+            color: white;
+        }
+
+        .hero {
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.75rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .hero .description {
+            color: #777;
+            max-width: 40rem;
+            margin: 0 auto;
+        }
+
+        .section {
+            max-width: 896px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .section h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .question-category {
+            font-size: 0.875rem;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .category-highlight {
+            color: #ff6b35;
+        }
+
+        .answer-box {
+            border-left: 4px solid #ff6b35;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .answer-box p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+
+        .details {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .rating-label {
+            color: #999;
+        }
+
+        .archive-section {
+            background-color: #1a1a1a;
+            padding: 4rem 1rem;
+        }
+
+        .archive-content {
+            max-width: 896px;
+            margin: 0 auto;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .question-button {
+            text-align: left;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #333;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-button:hover {
+            border-color: #ff6b35;
+        }
+
+        .question-button.active {
+            border-color: #ff6b35;
+            background-color: #222;
+        }
+
+        .question-button p:first-child {
+            font-weight: bold;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-button p:nth-child(2) {
+            font-size: 0.75rem;
+            color: #777;
+        }
+
+        .question-button p:nth-child(3) {
+            font-size: 0.75rem;
+            color: #ff6b35;
+            margin-top: 0.5rem;
+        }
+
+        .about-section {
+            max-width: 896px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-grid h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .about-grid p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .disclaimer h3 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer p {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            border-top: 1px solid #333;
+            margin-top: 4rem;
+        }
+
+        footer-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            font-size: 0.875rem;
+            color: #777;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #777;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.75rem;
+            }
+
+            .question-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Nav -->
+    <header>
+        <nav>
+            <div class="nav-logo">
+                <span>?</span>
+                <span>LikelyLegal</span>
+            </div>
+            <div class="nav-links">
+                <a href="#today">Today</a>
+                <a href="#archive">Archive</a>
+                <a href="#about">About</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="question-mark">?</div>
+            <h1>LikelyLegal</h1>
+            <p>"Ideas that sound legal yet dumb."</p>
+            <p class="subtitle">We're not lawyers. But we're probably right.</p>
+            <p class="description">
+                Daily questions about the weird, dumb, and borderline-legal things people actually do. 
+                Short answers. Confident tone. Slightly irreverent. For contractors, small business owners, 
+                and anyone who's ever wondered: "Wait, is that actually legal?"
+            </p>
+        </div>
+    </section>
+
+    <!-- Today's Question -->
+    <section id="today" class="section">
+        <h2>Today's Question</h2>
+        <div class="card" id="today-card">
+            <!-- Filled by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Archive -->
+    <section id="archive" class="archive-section">
+        <div class="archive-content">
+            <h2>Browse Questions</h2>
+            <div class="question-grid" id="question-grid">
+                <!-- Filled by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about-section">
+        <h2>About LikelyLegal?</h2>
+        <div class="about-grid">
+            <div>
+                <h3>The Idea</h3>
+                <p>You've probably wondered: "Is it legal to [weird thing]?" And you couldn't find a straight answer because lawyers are expensive and Google is useless.</p>
+                <p>LikelyLegal? answers those questions. Daily. Short, confident, slightly funny. We're not lawyers, but we do our homework.</p>
+            </div>
+            <div>
+                <h3>Audience</h3>
+                <p>Contractors, small business owners, entrepreneurs. People who build things, run operations, and don't have a legal team on speed dial.</p>
+                <p>If you've ever wondered about employment law, tax deductions, or Florida's weird recording rules—this is for you.</p>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <h3>Disclaimer</h3>
+            <p>This is not legal advice. We're just answering questions based on general knowledge and public information. If you need real legal advice, hire a real lawyer. We're confident, but we're not liable.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <footer-content>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>LikelyLegal?</h4>
+                    <p>Ideas that sound legal yet dumb.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>BrocastStudios Network</h4>
+                    <ul>
+                        <li><a href="https://brocaststudios.com">Brocasts</a></li>
+                        <li><a href="https://americusdiscourse.com">AmericusDiscourse</a></li>
+                        <li><a href="https://likelylegal.com">LikelyLegal?</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#about">Disclaimer</a></li>
+                        <li><a href="mailto:info@brocaststudios.com">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow</h4>
+                    <ul>
+                        <li><a href="https://twitter.com/brocaststudios">Twitter / X</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 LikelyLegal? by BrocastStudios. We're not lawyers. But we're probably right.</p>
+            </div>
+        </footer-content>
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                question: "Is it legal to not pay a contractor until 30 days after their invoice, even if the contract says net-15?",
+                category: "Construction/Contractor",
+                answer: "Short answer? No, not really. If your contract explicitly states net-15, you're breaching it by paying net-30. Some states add late fees and interest automatically. Florida Statute 218.70 doesn't apply to all construction contracts, but most do. The contractor can sue you, and they'll likely win. Even if they don't, you're opening yourself up to smaller claims court or lien actions.",
+                rating: "🔴 Please Don't",
+                details: "Your vendor agreed to net-15 terms. You agreed back. Changing unilaterally is a breach. Bad for relationships, worse for lawsuits."
+            },
+            {
+                id: 2,
+                question: "Can I run my home office heating/cooling as a business expense if I have a home-based LLC?",
+                category: "Small Business/Tax",
+                answer: "Yes, but only the portion of your utility bills that corresponds to your actual office space. If your office is 200 sq ft in a 2,000 sq ft home, you can deduct 10% of utilities. The IRS wants proof: office photos, square footage calculations, utility bills. Use the simplified method ($5/sq ft, max 300 sq ft) if tracking actual costs seems annoying.",
+                rating: "🟢 Probably Fine",
+                details: "This is a legit deduction. Just don't claim your entire house as office space or the IRS will laugh at you."
+            },
+            {
+                id: 3,
+                question: "Is it legal to hire my spouse at my company and pay them $0 salary to lower my company's income taxes?",
+                category: "Employment Law",
+                answer: "No. If your spouse is actually working, they must be paid at least minimum wage. If they're not working, you can't list them as an employee—that's tax fraud. The IRS absolutely hates this scheme and audits it regularly. Penalties start at the unpaid taxes + 20% + interest, and you could face criminal charges if the IRS determines it was intentional.",
+                rating: "🔴 Please Don't",
+                details: "The IRS has rules about reasonable compensation. Paying spouses legitimately is fine. Paying them nothing for work is not."
+            },
+            {
+                id: 4,
+                question: "Can I buy a foreclosed property in Florida, renovate it, and flip it without getting a contractor's license?",
+                category: "Real Estate/Florida",
+                answer: "If you're doing the work yourself, no license required. If you're hiring others to do the work, you need a state license for construction. However, Florida allows unlicensed 'home improvers' if the total cost is under $50,000. Over that, you or your contractor must be licensed. Hiring unlicensed contractors on a big project? That's illegal and voids your insurance if something goes wrong.",
+                rating: "🟡 Likely Legal",
+                details: "The $50k threshold is real, but don't test it. Get a licensed contractor for any substantial work."
+            },
+            {
+                id: 5,
+                question: "Can I legally deduct my car as a business expense if I only use it 20% of the time for business?",
+                category: "Tax/Financial",
+                answer: "Yes, you can deduct 20% of your car's expenses—fuel, maintenance, insurance, depreciation. You can use either the standard mileage rate (IRS-determined, changes annually) or actual expense method. The IRS requires a log: business miles, personal miles, and dates. Keep receipts. If you get audited and can't prove your 20% business use, the deduction disappears and you owe back taxes + penalties.",
+                rating: "🟢 Probably Fine",
+                details: "This is standard. Just document your business miles and keep your records straight."
+            },
+            {
+                id: 6,
+                question: "Is it legal to ghost a client and then sue them for non-payment after I stop responding to their emails?",
+                category: "General Business Absurdity",
+                answer: "No. If you disappeared and didn't respond to communication, you abandoned the contract. A judge will see it as you breaching first by not showing up or communicating. Your client has grounds to counter-sue for damages from the incomplete work. The court won't care that you later sent an invoice. You need to either fulfill the contract or formally terminate it and explain why.",
+                rating: "🔴 Please Don't",
+                details: "Ghosting is not a legal business strategy. It's the opposite."
+            },
+            {
+                id: 7,
+                question: "In Florida, can I legally record a phone call with someone without telling them I'm recording?",
+                category: "Florida-Specific",
+                answer: "No. Florida is a 'two-party consent' state. Both parties must consent to recording. If you record someone without their knowledge, it's a federal crime (wiretapping) and a state crime (up to 5 years in prison). There's no 'just for personal use' exception. If you're on a call, tell the other person you're recording, or don't record. Period.",
+                rating: "🔴 Please Don't",
+                details: "This is strict. Business calls, customer service calls, disagreements—all require explicit consent to record."
+            }
+        ];
+
+        let selectedQuestion = 0;
+
+        function renderTodayQuestion() {
+            const q = questions[selectedQuestion];
+            const ratingClass = q.rating.includes('Probably Fine') 
+                ? 'rating-fine' 
+                : q.rating.includes('Likely Legal') 
+                    ? 'rating-legal' 
+                    : 'rating-dont';
+            
+            document.getElementById('today-card').innerHTML = `
+                <h3 class="question-title">${q.question}</h3>
+                <p class="question-category">Category: <span class="category-highlight">${q.category}</span></p>
+                <div class="answer-box">
+                    <p>${q.answer}</p>
+                </div>
+                <p class="details">${q.details}</p>
+                <div>
+                    <span class="rating-label">Rating:</span>
+                    <span class="rating ${ratingClass}">${q.rating}</span>
+                </div>
+            `;
+        }
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = questions.map((q, idx) => `
+                <button class="question-button ${idx === selectedQuestion ? 'active' : ''}" onclick="selectQuestion(${idx})">
+                    <p>${q.question.substring(0, 60)}...</p>
+                    <p>${q.category}</p>
+                    <p>${q.rating}</p>
+                </button>
+            `).join('');
+        }
+
+        function selectQuestion(idx) {
+            selectedQuestion = idx;
+            renderTodayQuestion();
+            renderQuestionGrid();
+        }
+
+        // Initial render
+        renderTodayQuestion();
+        renderQuestionGrid();
+    </script>
+</body>
+</html>

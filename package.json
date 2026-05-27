@@ -1,0 +1,11 @@
+{
+  "name": "likelylegal",
+  "version": "1.0.0",
+  "description": "Ideas that sound legal yet dumb.",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "build": "echo 'Static site - no build needed'",
+    "start": "python3 -m http.server 3000"
+  }
+}
